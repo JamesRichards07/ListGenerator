@@ -1,0 +1,18 @@
+{
+    "name": "jamesrichards/list-generator",
+    "description": "random list generator",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jamesrichards\\ListGenerator\\": "src/",
+            "Jamesrichards\\Tests\\": "tests/"
+        },
+        "classmap": [
+            "src",
+            "tests"
+        ]
+    }
+}
