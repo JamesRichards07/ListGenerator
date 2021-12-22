@@ -2,8 +2,6 @@
 
 require "vendor/autoload.php";
 
-$main = new \Jamesrichards\ListGenerator\Main();
-
 echo 
 "\n
 Welcome to List Generator where you can randomly assign a list to designated participants. Lets get started! \nWho will be participating? (All characters will be included unless seperated by a comma):";
@@ -105,12 +103,13 @@ function getNumberOfTimesToShuffleFromUser(){
     return $num;
 }
 
+$buildList = new \Jamesrichards\ListGenerator\ListGenerator();
+
 $people = getListOfParticipantsFromUser();
 $items = getListOfItemsFromUser();
 $count = getNumberOfTimesToShuffleFromUser();
-var_dump($count);
 
-$results = $main->main($items, $people, $count);
+$results = $ListGenerator->buildList($items, $people, $count);
 
 echo "Here is your randomized list -\n";
 foreach($results as $result=>$result_values)

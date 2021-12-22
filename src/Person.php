@@ -51,9 +51,3 @@ class Person
         }
     }
 }
-
-// $James = new \Jamesrichards\ListGenerator\Person("James",["Arborec", "Barony of Letnev"]);
-// $Tiffany = new \Jamesrichards\ListGenerator\Person("Tiffany",["Arborec", "Barony of Letnev"]);
-// $Brian = new \Jamesrichards\ListGenerator\Person("Brian",["Arborec", "Barony of Letnev"]);
-
-// $people = array($James, $Tiffany, $Brian);

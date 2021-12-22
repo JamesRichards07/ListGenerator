@@ -2,9 +2,9 @@
 
 namespace Jamesrichards\ListGenerator;
 
-class Main
+class ListGenerator
 {
-    function shuffle_arr($arr, $count)
+    public function shuffle_arr($arr, $count)
     {
         for($i=0; $i<$count; $i++)
         {
@@ -13,7 +13,7 @@ class Main
         return $arr;
     }
     
-    function assign_items(array $arr, array $participants, int $count)
+    public function assign_items(array $arr, array $participants, int $count)
     {
         $chunks = array_chunk($arr, $count);
 
@@ -28,7 +28,7 @@ class Main
         return $result;
     }
 
-    function main(array $arr, array $participantsInfo, int $count = 3): array
+    public function buildList(array $arr, array $participantsInfo, int $count = 3): array
     {
         foreach($participantsInfo as $participantInfo){
             $participant_info[$participantInfo->getName()] = $participantInfo->getBlackListedItems();
