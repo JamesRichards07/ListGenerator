@@ -30,7 +30,7 @@ function getListOfParticipantsFromUser(){
         $moreParticipants = str_replace(", ", ",", $moreParticipants);
         $moreParticipants = explode(",", $moreParticipants);
         $participants = array_merge($participants, $moreParticipants);
-    
+
         echo "Current participants: \n";
         foreach($participants as $participant){
             echo "{$participant}\n";
@@ -41,14 +41,7 @@ function getListOfParticipantsFromUser(){
         echo "\n";
     }
 
-    $people = [];
-    foreach($participants as $participant)
-    {
-        $person = new \Jamesrichards\ListGenerator\Person($participant,[""]);
-        $people[$person->getName()] = $person;
-    }
-
-    return $people;
+    return $participants;
 }
 
 function getListOfItemsFromUser()
@@ -90,10 +83,7 @@ function getListOfItemsFromUser()
         echo "\n";
     }
 
-    $desiredList = new \Jamesrichards\ListGenerator\DesiredList();
-    $desiredList->desiredList = $items;
-
-    return $desiredList->desiredList;
+    return $items;
 }
 
 function getNumberOfTimesToShuffleFromUser(){
@@ -109,24 +99,19 @@ $people = getListOfParticipantsFromUser();
 $items = getListOfItemsFromUser();
 $count = getNumberOfTimesToShuffleFromUser();
 
-$results = $ListGenerator->buildList($items, $people, $count);
+$results = $buildList->buildList($items, $people, $count);
 
 echo "Here is your randomized list -\n";
-foreach($results as $result=>$result_values)
-{
-    if($result==="Unassigned")
-    {
-        if(array() === $result)
-        {
+foreach ($results as $result => $result_values) {
+    if ($result === "Unassigned") {
+        ;
+        if (!empty($result_values)) {
             echo "Here are the items which are unassigned:\n";
-            foreach($result_values as $result_value)
-            {
+            foreach ($result_values as $result_value) {
                 echo "$result_value\n";
             }
             echo "\n";
-        }
-        else
-        {
+        } else {
             echo "Congradulations all items were distributed!!";
             echo "\n";
         }

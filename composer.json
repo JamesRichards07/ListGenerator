@@ -1,8 +1,9 @@
 {
     "name": "jamesrichards/list-generator",
     "description": "List generator to randomly assign designated individuals to a given list of items.",
-    "require": {},
-    "require-dev": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
     "autoload": {
         "psr-4": {
             "Jamesrichards\\ListGenerator\\": "src/",

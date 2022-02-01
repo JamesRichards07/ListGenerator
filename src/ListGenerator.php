@@ -2,45 +2,71 @@
 
 namespace Jamesrichards\ListGenerator;
 
+use Exception;
+
+/**
+ * Generates a list.
+ */
 class ListGenerator
 {
-    public function shuffle_arr($arr, $count)
+    /**
+     * Shuffles an array a given number of times.
+     *
+     * @param $arr
+     * @param $count
+     * @return mixed
+     */
+    public function shuffleArr($arr, $count)
     {
-        for($i=0; $i<$count; $i++)
-        {
+        for ($i = 0; $i < $count; $i++) {
             shuffle($arr);
         }
         return $arr;
     }
-    
-    public function assign_items(array $arr, array $participants, int $count)
+
+    /**
+     * Chunks and merges one array into another noting any leftovers.
+     *
+     * @param array $arr
+     * @param array $participants
+     * @param int $count
+     * @return array
+     */
+    public function assignItems(array $arr, array $participants, int $count): array
     {
         $chunks = array_chunk($arr, $count);
 
         $unassignedArr = [];
-        while(count($chunks) > count($participants))
-        {
+        while (count($chunks) > count($participants)) {
             $unassignedArr = array_merge($unassignedArr, array_pop($chunks));
         }
         $unassigned["Unassigned"] = $unassignedArr;
 
-        $result = array_merge(array_combine($participants, $chunks), $unassigned);
-        return $result;
+        return array_merge(array_combine($participants, $chunks), $unassigned);
     }
 
+    /**
+     * Shuffle arrays and chunks and merges one array into another noting any leftovers.
+     *
+     * @param array $arr
+     * @param array $participantsInfo
+     * @param int $count
+     * @return array
+     * @throws Exception
+     */
     public function buildList(array $arr, array $participantsInfo, int $count = 3): array
     {
-        foreach($participantsInfo as $participantInfo){
-            $participant_info[$participantInfo->getName()] = $participantInfo->getBlackListedItems();
+        if (empty($arr) or empty($participantsInfo)) {
+            throw new Exception("Given info cannot be empty.");
         }
 
-        $participant_names = array_keys($participant_info);
-        
-        $shuffledList = $this->shuffle_arr($arr, $count);
-        $shuffledNames = $this->shuffle_arr($participant_names, $count);
+        $participant_names = $participantsInfo;
 
-        $items_per_participant = floor(count($shuffledList)/count($shuffledNames));
+        $shuffledList = $this->shuffleArr($arr, $count);
+        $shuffledNames = $this->shuffleArr($participant_names, $count);
 
-        return $this->assign_items($shuffledList, $shuffledNames, $items_per_participant);
+        $items_per_participant = floor(count($shuffledList) / count($shuffledNames));
+
+        return $this->assignItems($shuffledList, $shuffledNames, $items_per_participant);
     }
 };
